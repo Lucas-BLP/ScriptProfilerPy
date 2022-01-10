@@ -22,20 +22,19 @@ class ScriptProfilerPy:
         self.erasedlines = []
 
         if self.filepath is not None and isinstance(self.filepath, str):
-            self.eraseEmptyLines()
+            try:
+                self.indent = len(sys.argv[1])
+            except:
+                self.indent = self.checkFileIndent()
         else:
-            raise ValueError("filepath should be complete path string to a valid py script")
-
-        try:
-            self.indent = len(sys.argv[1])
-        except:
-            self.indent = self.checkFileIndent()
+            raise ValueError(
+                "filepath should be complete path string to a valid py script")
 
     def test():
         pass
 
-    def eraseEmptyLines(self):
-        with open(self.filepath, 'r') as f:
+    def eraseEmptyLines(self, filetest_path_ext):
+        with open(filetest_path_ext, 'r') as f:
             contents = f.readlines()
             f.close()
             # Handle last line to prevent IndexError
@@ -45,16 +44,19 @@ class ScriptProfilerPy:
                     contents[i] = ""
                     self.erasedlines.append(i)
 
-        with open(self.filepath, 'w') as f:
+        with open(filetest_path_ext, 'w') as f:
             f.writelines(contents)
             f.close()
 
     def indexFirstMatch(self, matchvalue, matcharray):
         match_at = [i for i, j in enumerate(matcharray) if matchvalue <= j]
-        if len(matcharray) ==0:
+        if len(matcharray) == 0:
             return 0
         else:
-            return match_at[0]
+            try:
+                return match_at[0]
+            except:
+                return 0
 
     def Profiler(self):
         # Copy file example.txt into a new file called example_copy.txt
@@ -63,7 +65,7 @@ class ScriptProfilerPy:
         filetest_path_ext = filetest_path + '.py'
         shutil.copy2(self.filepath, filetest_path_ext)
 
-        self.eraseEmptyLines()
+        self.eraseEmptyLines(filetest_path_ext)
 
         with open(filetest_path_ext, 'r') as f:
             contents = f.readlines()
