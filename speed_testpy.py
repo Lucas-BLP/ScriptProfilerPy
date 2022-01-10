@@ -11,8 +11,7 @@ import warnings
 class ScriptProfilerPy:
     r''' Allows to check performance of each block in a python file
         Main functions:
-            test
-            plot_perfs
+            Profiler
     '''
 
     def __init__(self, filepath=None, chart=None, indent=None):
@@ -20,93 +19,100 @@ class ScriptProfilerPy:
         self.chart = chart
         self.indent = None
         self.totaltime = None
+        self.erasedlines = []
+
+        if self.filepath is not None and isinstance(self.filepath, str):
+            self.eraseEmptyLines()
+        else:
+            raise ValueError("filepath should be complete path string to a valid py script")
 
         try:
             self.indent = len(sys.argv[1])
         except:
-            if filepath is not None and isinstance(filepath, str):
-                self.indent = self.checkFileIndent(filepath)
+            self.indent = self.checkFileIndent()
 
     def test():
         pass
 
-    def eraseEmptyLines(self, filepath):
-        with open(filepath, 'r') as f:
+    def eraseEmptyLines(self):
+        with open(self.filepath, 'r') as f:
             contents = f.readlines()
             f.close()
             # Handle last line to prevent IndexError
-            line_count = 0
-            for line in contents:
-                if line[:2] == "\n" or line.strip() == " ":
-                    contents[line_count] = ""
-                line_count += 1
-        with open(filepath, 'w') as f:
+
+            for i, j in enumerate(contents):
+                if j[:2] == "\n" or j.strip() == " ":
+                    contents[i] = ""
+                    self.erasedlines.append(i)
+
+        with open(self.filepath, 'w') as f:
             f.writelines(contents)
             f.close()
 
-    def Profiler(self, filepath, erase_line=True):
+    def indexFirstMatch(self, matchvalue, matcharray):
+        match_at = [i for i, j in enumerate(matcharray) if matchvalue <= j]
+        if len(matcharray) ==0:
+            return 0
+        else:
+            return match_at[0]
+
+    def Profiler(self):
         # Copy file example.txt into a new file called example_copy.txt
-        pathname, extension = os.path.splitext(filepath)
+        pathname, extension = os.path.splitext(self.filepath)
         filetest_path = pathname + '_STP_test'
         filetest_path_ext = filetest_path + '.py'
-        shutil.copy2(filepath, filetest_path_ext)
+        shutil.copy2(self.filepath, filetest_path_ext)
 
-        if erase_line == True:
-            self.eraseEmptyLines(filetest_path_ext)
-        else:
-            warnings.warn(
-                "Empty lines not erased. If the module fail, please try again with: erase_line=True")
+        self.eraseEmptyLines()
 
         with open(filetest_path_ext, 'r') as f:
             contents = f.readlines()
             f.close()
-            line_number = 0
+
             indented_lines = []
-            for line in contents:
+            for line_number, line in enumerate(contents):
                 if re.match(r'^\s', line):
                     indented_lines.append(line_number)
-                line_number += 1
 
         with open(filetest_path_ext, 'w') as f:
-            for indent_line in range(line_number):
-                if indent_line == 0:
-                    contents[indent_line] += "\nfrom datetime import datetime\n"
-                    contents[indent_line] += "import shutil\n"
-                    contents[indent_line] += "from speed_testpy import ScriptProfilerPy\n"
-                    contents[indent_line] += "import matplotlib.pyplot as plt\n"
-                    contents[indent_line] += "from matplotlib.ticker import LinearLocator\n"
-                    contents[indent_line] += "speed_test_restime = []\n"
-                    contents[indent_line] += "speed_test_lines = []\n"
-                    contents[indent_line] += "speedtest_startimefile = datetime.now()\n"
-                    contents[indent_line] += "global speedtest_startime\n"
-                    contents[indent_line] += "speedtest_startime = datetime.now()\n"
-                    contents[indent_line] += "def STP_check(passed_line, speedtest_startime):\n"
-                    contents[indent_line] += f"{self.indent*' '}speed_test_restime.append((datetime.now()-speedtest_startime).total_seconds())\n"
-                    contents[indent_line] += f"{self.indent*' '}speed_test_lines.append(passed_line)\n"
-                    contents[indent_line] += f"{self.indent*' '}speedtest_startime = datetime.now()\n"
+            for i, j in enumerate(contents):
+                if i == 0:
+                    contents[i] += "\nfrom datetime import datetime\n"
+                    contents[i] += "import shutil\n"
+                    contents[i] += "from speed_testpy import ScriptProfilerPy\n"
+                    contents[i] += "import matplotlib.pyplot as plt\n"
+                    contents[i] += "from matplotlib.ticker import LinearLocator\n"
+                    contents[i] += "speed_test_restime = []\n"
+                    contents[i] += "speed_test_lines = []\n"
+                    contents[i] += "speedtest_startimefile = datetime.now()\n"
+                    contents[i] += "global speedtest_startime\n"
+                    contents[i] += "speedtest_startime = datetime.now()\n"
+                    contents[i] += "def STP_check(passed_line, speedtest_startime):\n"
+                    contents[i] += f"{self.indent*' '}speed_test_restime.append((datetime.now()-speedtest_startime).total_seconds())\n"
+                    contents[i] += f"{self.indent*' '}speed_test_lines.append(passed_line)\n"
+                    contents[i] += f"{self.indent*' '}speedtest_startime = datetime.now()\n"
                     continue
 
-                elif not (((indent_line-1) in indented_lines) or (indent_line in indented_lines) or ((indent_line+1) in indented_lines)):
-                    contents[indent_line] += f"STP_check({indent_line}, speedtest_startime)\n"
-                    contents[indent_line] += f"speedtest_startime = datetime.now()\n"
-                    # contents[indent_line] += "speed_test_restime.append((datetime.now()-speedtest_startime).total_seconds())\n"
-                    # contents[indent_line] += f"speed_test_lines.append({indent_line})\n"
-                    # contents[indent_line] += f"speedtest_startime = datetime.now()\n"
+                elif not (((i-1) in indented_lines) or (i in indented_lines) or ((i+1) in indented_lines)):
+                    contents[i] += f"STP_check({i+self.indexFirstMatch(i, self.erasedlines)}, speedtest_startime)\n"
+                    contents[i] += f"speedtest_startime = datetime.now()\n"
+                    # contents[i] += "speed_test_restime.append((datetime.now()-speedtest_startime).total_seconds())\n"
+                    # contents[i] += f"speed_test_lines.append({i})\n"
+                    # contents[i] += f"speedtest_startime = datetime.now()\n"
 
-                if indent_line == max(range(line_number)):
-                    contents[indent_line] += "\nplt.figure()\n"
-                    contents[indent_line] += "x = speed_test_lines[::-1]\n"
-                    contents[indent_line] += "restime = speed_test_restime[::-1]\n"
-                    contents[indent_line] += "x_pos = [i for i, _ in enumerate(x)]\n"
-                    contents[indent_line] += "plt.barh(x_pos, restime, color='green')\n"
-                    contents[indent_line] += "timerun = np.round((speedtest_startime - speedtest_startimefile).total_seconds(),3)\n"
-                    contents[indent_line] += "plt.ylabel('Code Lines')\n"
-                    contents[indent_line] += "plt.yticks(fontsize=8)\n"
-                    contents[
-                        indent_line] += """plt.xlabel(f"Time (seconds), Script execution: {timerun}'s")\n"""
-                    contents[indent_line] += "plt.title('Code profile')\n"
-                    contents[indent_line] += "plt.yticks(x_pos, x)\n"
-                    contents[indent_line] += "plt.show()\n"
+                if i == max(enumerate(contents))[0]:
+                    contents[i] += "\nplt.figure()\n"
+                    contents[i] += "x = speed_test_lines[::-1]\n"
+                    contents[i] += "restime = speed_test_restime[::-1]\n"
+                    contents[i] += "x_pos = [i for i, _ in enumerate(x)]\n"
+                    contents[i] += "plt.barh(x_pos, restime, color='green')\n"
+                    contents[i] += "timerun = np.round((speedtest_startime - speedtest_startimefile).total_seconds(),3)\n"
+                    contents[i] += "plt.ylabel('Code Lines')\n"
+                    contents[i] += "plt.yticks(fontsize=8)\n"
+                    contents[i] += """plt.xlabel(f"Time (seconds), Script execution: {timerun}'s")\n"""
+                    contents[i] += "plt.title('Code profile')\n"
+                    contents[i] += "plt.yticks(x_pos, x)\n"
+                    contents[i] += "plt.show()\n"
 
             f.writelines(contents)
             f.close()
@@ -121,14 +127,13 @@ class ScriptProfilerPy:
     def plot_perfs():
         pass
 
-    def check_indentation(self, filepath):
-        with open(filepath, 'r') as f:
-            lines = f.readlines()
+    def check_indentation(self):
+        with open(self.filepath, 'r') as f:
+            contents = f.readlines()
             f.close()
-            i = 0
-            for line in lines:
-                i += 1
-                if re.match(r'^\s', line):
+
+            for i, j in enumerate(contents):
+                if re.match(r'^\s', j):
                     print("Indentation at line: " + str(i+1))
 
     def indentCount(self, txt_string=None):
@@ -140,10 +145,10 @@ class ScriptProfilerPy:
         if not isinstance(txt_string, str):
             pass
 
-        for i in range(len(txt_string)):
-            if i == spaces and txt_string[i] == " ":
+        for i, j in enumerate(txt_string):
+            if i == spaces and j == " ":
                 spaces += 1
-            if txt_string[i] == " " and txt_string[i+1] != " ":
+            if j == " " and txt_string[i+1] != " ":
                 if spaces == 2:
                     self.indent = 2
                     break
@@ -154,16 +159,15 @@ class ScriptProfilerPy:
 
         return self.indent
 
-    def checkFileIndent(self, filepath):
+    def checkFileIndent(self):
         r''' Check indentation in a string with spaces (2 or 4)
             Returns None if more than 4 spaces are in left side of a string'''
-        self.filepath = filepath
         self.indent = None
         try:
             self.indent = len(sys.argv[1])
         except:
             self.indent = None
-            with open(filepath, "r") as f:
+            with open(self.filepath, "r") as f:
                 contents = f.readlines()
                 f.close()
                 for line in contents:
