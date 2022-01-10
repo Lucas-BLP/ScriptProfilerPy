@@ -12,9 +12,11 @@ Require matplotlib.pyplot, numpy
 
 from speed_testpy import ScriptProfilerPy
 
-ScriptProfilerPy().Profiler(filepath="your_py_file_totest_path", erase_line=True)
+ScriptProfilerPy(filepath="example_testfile.py").Profiler()
+output > code_profile_output.png
 
-'If the program fails, try again with Profiler(filepath, erase_line=True)
+'Make a copy of your python script to prevent any issues.
+'Executing this script with same packages as your scrpt's virtual environment.
 
 **Your script will be executed as a standard python import**
 
