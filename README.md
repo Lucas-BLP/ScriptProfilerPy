@@ -16,6 +16,7 @@ ScriptProfilerPy(filepath="example_testfile.py").Profiler()
 output > code_profile_output.png
 
 'Make a copy of your python script to prevent any issues.
+
 'Executing this script with same packages as your scrpt's virtual environment.
 
 **Your script will be executed as a standard python import**
