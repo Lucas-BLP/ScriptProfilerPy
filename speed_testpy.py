@@ -58,7 +58,7 @@ class ScriptProfilerPy:
             except:
                 return 0
 
-    def Profiler(self):
+    def Profiler(self, remove_output_file=True):
         # Copy file example.txt into a new file called example_copy.txt
         pathname, extension = os.path.splitext(self.filepath)
         filetest_path = pathname + '_STP_test'
@@ -120,11 +120,11 @@ class ScriptProfilerPy:
             f.close()
 
         try:
-            execute_file = __import__(filetest_path)
-            import execute_file
-            os.remove(filetest_path_ext)
+            __import__(filetest_path)
+            if remove_output_file == True:
+                os.remove(filetest_path_ext)
         except:
-            pass
+            raise SyntaxError(f"The output file couldn't run, you can run the file {filetest_path_ext} for fixing")
 
     def plot_perfs():
         pass

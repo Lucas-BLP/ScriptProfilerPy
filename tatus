@@ -1,0 +1,41 @@
+[33mcommit 5bf3a9961b93c02183429df373fb1b8aa6686f9a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Tue Jan 11 14:02:44 2022 +0100
+
+    Adding virtual environment and necessary packages
+
+[33mcommit 9ece4d81e0559c6589d58c05c1c38a9e5db6055b[m[33m ([m[1;33mtag: v0.0.1-alpha[m[33m)[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Mon Jan 10 22:33:12 2022 +0100
+
+    Editing documentation
+
+[33mcommit ad8d8fb10ac63e9899b4eeda8c904340dc26f922[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Mon Jan 10 22:32:37 2022 +0100
+
+    Editing documentation
+
+[33mcommit f3639b2dc531b008ad3f5797f764dcd8a80e030e[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Mon Jan 10 22:29:33 2022 +0100
+
+    Third version in which file is copied for use by the script erased lines
+
+[33mcommit f79ba42f23e9712102b9681f0ae26382e07bfec9[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Mon Jan 10 22:18:40 2022 +0100
+
+    Second version with filepath in class instance and erasing lines by default, keeping track of erased lines for the output
+
+[33mcommit 58813f76e38c2555fb7619afe3dd8245dff1dbe7[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Mon Jan 10 22:14:37 2022 +0100
+
+    Second version with filepath in class instance and erasing lines by default, keeping track of erased lines for the output
+
+[33mcommit 5c6930d880f1bca6e13af7bfb40df7d46a31715a[m
+Author: lucasblp <lucasb38000@gmail.com>
+Date:   Mon Jan 10 11:23:54 2022 +0100
+
+    First version push ScriptProfilerPy, module for speed testing python scripts
