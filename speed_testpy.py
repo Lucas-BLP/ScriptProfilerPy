@@ -12,6 +12,8 @@ class ScriptProfilerPy:
     r''' Allows to check performance of each block in a python file
         Main functions:
             Profiler
+
+        Returns matplotlib chart
     '''
 
     def __init__(self, filepath=None, chart=None, indent=None):

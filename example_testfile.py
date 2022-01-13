@@ -23,6 +23,11 @@ df.head()
 df.tail()
 
 
+df.head()
+df.head()
+df.tail()
+
+
 for i in df.index:
     df.tail()
 df.tail()
