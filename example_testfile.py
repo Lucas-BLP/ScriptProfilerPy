@@ -40,6 +40,10 @@ df = pd.DataFrame(np.random.randn(1000, 4),
 df
 df.head()
 df.head()
+df.head()
+df.head()
+df.head()
+df.head()
 for i in df.index:
     df.tail()
 df.head()
