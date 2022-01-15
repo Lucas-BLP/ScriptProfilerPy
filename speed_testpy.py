@@ -98,11 +98,14 @@ class ScriptProfilerPy:
                     continue
 
                 elif not (((i-1) in indented_lines) or (i in indented_lines) or ((i+1) in indented_lines)):
-                    contents[i] += f"STP_check({i+self.indexFirstMatch(i, self.erasedlines)}, speedtest_startime)\n"
+                    current_lines = 0
+                    if i > len(self.erasedlines):
+                        current_lines = len(self.erasedlines)
+                    else:
+                        current_lines  = self.indexFirstMatch(i, self.erasedlines)
+
+                    contents[i] += f"STP_check({i+current_lines}, speedtest_startime)\n"
                     contents[i] += f"speedtest_startime = datetime.now()\n"
-                    # contents[i] += "speed_test_restime.append((datetime.now()-speedtest_startime).total_seconds())\n"
-                    # contents[i] += f"speed_test_lines.append({i})\n"
-                    # contents[i] += f"speedtest_startime = datetime.now()\n"
 
                 if i == max(enumerate(contents))[0]:
                     contents[i] += "\nplt.figure()\n"

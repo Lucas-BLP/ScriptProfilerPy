@@ -27,63 +27,40 @@ ts = pd.Series(np.random.randn(1000),
                index=pd.date_range("1/1/2000", periods=1000))
 ts
 ts = np.exp(ts.cumsum())
-STP_check(9, speedtest_startime)
+STP_check(10, speedtest_startime)
 speedtest_startime = datetime.now()
 df = pd.DataFrame(np.random.randn(1000, 4),
                   index=ts.index, columns=list("ABCD"))
 df
 df.head()
-STP_check(13, speedtest_startime)
+STP_check(16, speedtest_startime)
 speedtest_startime = datetime.now()
 df.head()
-STP_check(14, speedtest_startime)
+STP_check(17, speedtest_startime)
 speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
 df.head()
 df.head()
-STP_check(19, speedtest_startime)
-speedtest_startime = datetime.now()
-df.tail()
 STP_check(21, speedtest_startime)
 speedtest_startime = datetime.now()
-for i in df.index:
-    df.tail()
 df.tail()
-df.tail()
-STP_check(26, speedtest_startime)
-speedtest_startime = datetime.now()
-for i in df.index:
-    df.tail()
-ts = pd.Series(np.random.randn(1000),
-               index=pd.date_range("1/1/2000", periods=1000))
-ts
-ts = np.exp(ts.cumsum())
-STP_check(34, speedtest_startime)
-speedtest_startime = datetime.now()
-df = pd.DataFrame(np.random.randn(1000, 4),
-                  index=ts.index, columns=list("ABCD"))
-df
-df.head()
-STP_check(38, speedtest_startime)
+STP_check(22, speedtest_startime)
 speedtest_startime = datetime.now()
 df.head()
-STP_check(40, speedtest_startime)
+STP_check(23, speedtest_startime)
 speedtest_startime = datetime.now()
-for i in df.index:
-    df.tail()
 df.head()
-df.head()
-STP_check(36, speedtest_startime)
+STP_check(25, speedtest_startime)
 speedtest_startime = datetime.now()
 df.tail()
-STP_check(37, speedtest_startime)
+STP_check(27, speedtest_startime)
 speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
 df.tail()
 df.tail()
-STP_check(41, speedtest_startime)
+STP_check(32, speedtest_startime)
 speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
@@ -91,63 +68,107 @@ ts = pd.Series(np.random.randn(1000),
                index=pd.date_range("1/1/2000", periods=1000))
 ts
 ts = np.exp(ts.cumsum())
-STP_check(47, speedtest_startime)
+STP_check(54, speedtest_startime)
 speedtest_startime = datetime.now()
 df = pd.DataFrame(np.random.randn(1000, 4),
                   index=ts.index, columns=list("ABCD"))
 df
 df.head()
-STP_check(51, speedtest_startime)
+STP_check(58, speedtest_startime)
 speedtest_startime = datetime.now()
 df.head()
-STP_check(52, speedtest_startime)
+STP_check(59, speedtest_startime)
 speedtest_startime = datetime.now()
-for i in df.index:
-    df.tail()
 df.head()
+STP_check(60, speedtest_startime)
+speedtest_startime = datetime.now()
 df.head()
-STP_check(56, speedtest_startime)
-speedtest_startime = datetime.now()
-df.tail()
-STP_check(57, speedtest_startime)
-speedtest_startime = datetime.now()
-for i in df.index:
-    df.tail()
-df.tail()
-df.tail()
 STP_check(61, speedtest_startime)
 speedtest_startime = datetime.now()
+df.head()
+STP_check(62, speedtest_startime)
+speedtest_startime = datetime.now()
+df.head()
+STP_check(63, speedtest_startime)
+speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
-ts = pd.Series(np.random.randn(1000),
-               index=pd.date_range("1/1/2000", periods=1000))
-ts
-ts = np.exp(ts.cumsum())
+df.head()
+df.head()
 STP_check(67, speedtest_startime)
 speedtest_startime = datetime.now()
-df = pd.DataFrame(np.random.randn(1000, 4),
-                  index=ts.index, columns=list("ABCD"))
-df
-df.head()
-STP_check(71, speedtest_startime)
+df.tail()
+STP_check(68, speedtest_startime)
 speedtest_startime = datetime.now()
-df.head()
+for i in df.index:
+    df.tail()
+df.tail()
+df.tail()
 STP_check(72, speedtest_startime)
 speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
+ts = pd.Series(np.random.randn(1000),
+               index=pd.date_range("1/1/2000", periods=1000))
+ts
+ts = np.exp(ts.cumsum())
+STP_check(78, speedtest_startime)
+speedtest_startime = datetime.now()
+df = pd.DataFrame(np.random.randn(1000, 4),
+                  index=ts.index, columns=list("ABCD"))
+df
+df.head()
+STP_check(82, speedtest_startime)
+speedtest_startime = datetime.now()
+df.head()
+STP_check(83, speedtest_startime)
+speedtest_startime = datetime.now()
+for i in df.index:
+    df.tail()
 df.head()
 df.head()
-STP_check(76, speedtest_startime)
+STP_check(87, speedtest_startime)
 speedtest_startime = datetime.now()
 df.tail()
-STP_check(77, speedtest_startime)
+STP_check(88, speedtest_startime)
 speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
 df.tail()
 df.tail()
-STP_check(81, speedtest_startime)
+STP_check(92, speedtest_startime)
+speedtest_startime = datetime.now()
+for i in df.index:
+    df.tail()
+ts = pd.Series(np.random.randn(1000),
+               index=pd.date_range("1/1/2000", periods=1000))
+ts
+ts = np.exp(ts.cumsum())
+STP_check(98, speedtest_startime)
+speedtest_startime = datetime.now()
+df = pd.DataFrame(np.random.randn(1000, 4),
+                  index=ts.index, columns=list("ABCD"))
+df
+df.head()
+STP_check(102, speedtest_startime)
+speedtest_startime = datetime.now()
+df.head()
+STP_check(103, speedtest_startime)
+speedtest_startime = datetime.now()
+for i in df.index:
+    df.tail()
+df.head()
+df.head()
+STP_check(107, speedtest_startime)
+speedtest_startime = datetime.now()
+df.tail()
+STP_check(108, speedtest_startime)
+speedtest_startime = datetime.now()
+for i in df.index:
+    df.tail()
+df.tail()
+df.tail()
+STP_check(112, speedtest_startime)
 speedtest_startime = datetime.now()
 for i in df.index:
     df.tail()
