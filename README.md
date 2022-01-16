@@ -23,7 +23,7 @@ output > code_profile_output.png
 
 # Output:
 
-![ScriptProfilerPy](https://github.com/Lucas-BLP/ScriptProfilerPy/blob/master/code_profile_output.png)
+![ScriptProfilerPy](https://github.com/Lucas-BLP/ScriptProfilerPy/blob/master/code_profiler_output.png)
 
 # How it works:
 
